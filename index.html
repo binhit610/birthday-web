@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ê Biết Nay Ngày Gì Không ??</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./style/style.css">
+</head>
+<body>
+
+<button id="mode-toggle" title="Chuyển đổi chế độ sáng/tối">🌙</button>
+<button id="music-btn" title="Phát/tạm dừng nhạc nền">🔇</button>
+
+<div class="photo-album">
+  <img src="https://i.pinimg.com/736x/79/81/88/79818873e3d488ba818c8aaad7ff470c.jpg" alt="Avatar" />
+  <img src="https://scontent.fsgn2-5.fna.fbcdn.net/v/t39.30808-6/584446508_1534258514693326_9164485297585133584_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeGON9aYBAk1gQaTcHcoxx55yEEM8wJor9LIQQzzAmiv0li-D9Xiuv0NJeannckYi4FnjqXEfbe49h8mwvx96IF3&_nc_ohc=kGnJp4z6JeQQ7kNvwFfev-X&_nc_oc=AdlN5I9Cn9GRCXQ9pEzr2R_lpBSCQIgOXHw9X5eiMyKtjGRCXZz9YDjV5AaQ7ozwx0o&_nc_zt=23&_nc_ht=scontent.fsgn2-5.fna&_nc_gid=jWQH1WIeGrld3Kb3W0OxOQ&oh=00_Afh9vFqdowsHhvybRVP6eeUauW2VmWuxTuQg1Dkxw7u1KA&oe=691DBDC5" alt="Album 1" />
+  <img src="https://scontent.fsgn2-11.fna.fbcdn.net/v/t39.30808-6/582620830_1534273924691785_6207037917315725067_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeE6t0LE5aOWv_U8RQjctV7R5C91y-VT33fkL3XL5VPfd7hl41SPu3w8CHO2TSBF1fTXCxZDkwo2COBSZvo4_82F&_nc_ohc=GfPIXOQCKxoQ7kNvwH9eTit&_nc_oc=AdlEaKJPNSdJYvVW9IfdzNG4kkCIDZGl_rRTp0_EWk_s-cDiFBSQpHgSVD8zYvxQyyo&_nc_zt=23&_nc_ht=scontent.fsgn2-11.fna&_nc_gid=kXwB64DckoH2itE9vXeXRA&oh=00_AfgeuB9XmF4-XKk-dMX9gLL2zBvGXPlhBfLmTa_21rUCrg&oe=691D9F86" alt="Album 2" />
+</div>
+
+<div class="container">
+  <h1>Ê Biết Nay Ngày Gì Không ???</h1>
+  <h1>Cho mi 3s để mở ra coi đó 😤</h1>
+  <div>
+    <button class="btn" id="open-gift-btn" aria-haspopup="dialog" aria-controls="popup" aria-expanded="false">Coi lẹ đi😏</button>
+    <button class="btn" id="exit-btn" aria-haspopup="dialog">Không thì cút 😒</button>
+  </div>
+</div>
+
+<div class="popup" id="exit-popup">
+  <center><img src="https://i.pinimg.com/736x/32/a5/4d/32a54dc49f2dbd53374f67b025a3d6c4.jpg" alt="Xin lỗi mà"/></center>
+  <h2>Ê giỡn á 😢</h2>
+  <p>Bấm mở coi đi mà, năn nỉ á 🥺</p>
+  <button class="close-btn" id="close-exit-btn">Ok nè😁</button>
+</div>
+
+<div class="popup" id="popup">
+  <center><img src="https://i.pinimg.com/736x/0d/5b/f3/0d5bf3ef087a77846742fa96fa300f07.jpg" alt="Quà sinh nhật" style="max-width:70%; height:auto;" /></center>
+  <h2 id="popup-title">Bất ngờ chưa!</h2>
+  <div id="typing-text"></div>
+  <button class="close-btn" id="close-popup-btn">Đóng</button>
+</div>
+
+<div class="popup" id="pass-popup">
+  <h2>Nhập pass để mở quà 😏</h2>
+  <input type="password" id="pass-input" placeholder="Nhập pass..." />
+  <button class="close-btn" id="submit-pass">Gửi nè</button>
+</div>
+
+<div class="popup" id="wrong-pass-popup">
+  <center><img src="https://i.pinimg.com/736x/81/f1/74/81f17472464b344c13286ef3ef2ab794.jpg" alt="Wrong" style="width:120px"/></center>
+  <h2>Ủa là sao dị bà? 😤</h2>
+  <p>Pass sai rồi, thử lại đi nha! 🫣</p>
+  <button class="close-btn" id="retry-pass">Nhập lại</button>
+</div>
+
+<div class="popup" id="guess-age-popup">
+  <center><img src="https://i.pinimg.com/736x/aa/3a/dd/aa3add4a9fcb132c14ac9c6ede3baf7e.jpg" alt="Guess age" style="width: 120px;"/></center>
+  <h2>Khai tuổi thật đi 🤨</h2>
+  <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+    <button class="btn age-btn" data-age="16">16 tuổi</button>
+    <button class="btn age-btn" data-age="17">17 tuổi</button>
+    <button class="btn age-btn" data-age="18">18 tuổi</button>
+  </div>
+</div>
+
+<canvas id="fireworks"></canvas>
+<audio id="bg-music" autoplay loop>
+  <source src="./style/HPBD.mp3" type="audio/mpeg" />
+</audio>
+
+<script src="./style/script.js"></script>
+</body>
+</html>
+
+
