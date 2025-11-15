@@ -83,10 +83,11 @@ const popup = document.getElementById("popup");
 const closePopupBtn = document.getElementById("close-popup-btn");
 const typingTextElem = document.getElementById("typing-text");
 const messages = [
-  "Sinh nhật dui dẻ nha bà, quý lắm mới chúc á nha bà! 💝🎂.",
-  "Mong sao tuổi mới bà sẽ mang đến thật nhiều hạnh phúc và sức khỏe dồi dào! 🎉✨.",
-  "Chúc sao cho bà luôn thành công nữa nè, làm gì cũng thuận lợi 🥰🍀.",
-  "Thêm một tuổi mới, chúc sao cho bà luôn dui dẻ bên bạn bè, gia đình và người bà luôn yêu thương 🤗💞.",
+  "Sinh nhật dui dẻ nha bà, quý lắm mới chúc á hahaha! 💝🎂.",
+  "Mong sao tuổi mới Minh Thư sẽ mang đến thật nhiều hạnh phúc và sức khỏe dồi dào! 🎉✨.",
+  "Chúc sao cho emm luôn thành công trong học tập nữa nè, làm gì cũng thuận lợi thii điểm caoo nhaa 🥰🍀.",
+  "Thêm một tuổi mới, chúc sao cho em luôn dui dẻ bên bạn bè, gia đình và người bà luôn yêu thương 🤗💞.",
+  "Đâyy là món quà nhỏ anh dành cho emm mong em thích nó nhenn,..",
   "Hãy tận hưởng ngày đặc biệt này với thật nhiều niềm vui và tiếng cười nhé! ❤️🎈"
 ];
 let msgIndex = 0, charIndex = 0, typingTimeout;
