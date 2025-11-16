@@ -283,8 +283,13 @@ function updateModeIcon() { modeToggleBtn.textContent = document.body.classList.
 modeToggleBtn.addEventListener("click", () => { document.body.classList.toggle("dark"); updateModeIcon(); });
 updateModeIcon();
 
-// === Emoji rơi ===
+// === Emoji rơi mượt hơn ===
+const maxEmojis = 10;        // số emoji tối đa trên màn hình
+let currentEmojis = 0;       // đang có bao nhiêu emoji
+
 function createFallingEmoji() {
+  if (currentEmojis >= maxEmojis) return; // quá số tối đa thì không tạo thêm
+
   const emojiList = ["🌸", "🎉", "🍰", "💖", "🥰", "🎂", "🍀"];
   const wrapper = document.createElement("div");
   wrapper.style.position = "fixed";
@@ -292,26 +297,34 @@ function createFallingEmoji() {
   wrapper.style.left = Math.random() * 100 + "vw";
   wrapper.style.pointerEvents = "none";
   wrapper.style.zIndex = "9999";
-  wrapper.style.fontSize = (Math.random() * 24 + 24) + "px";
+  const size = Math.random() * 24 + 24;  // 24px -> 48px
+  wrapper.style.fontSize = size + "px";
   wrapper.style.opacity = (Math.random() * 0.6 + 0.4);
-  const emoji = document.createElement("div");
-  emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-  emoji.style.display = "inline-block";
-  emoji.style.animation = `rotateEmoji ${Math.random() * 2 + 2}s linear infinite`;
-  wrapper.appendChild(emoji);
+
+  wrapper.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
   document.body.appendChild(wrapper);
 
+  currentEmojis++;
+
   let top = -50;
-  const fallDuration = Math.random() * 4000 + 4000;
+  const fallDuration = Math.random() * 3000 + 4000; // 4s -> 7s
   const interval = 16;
   const step = (window.innerHeight + 100) / (fallDuration / interval);
+
   const fallInterval = setInterval(() => {
     top += step;
     wrapper.style.top = top + "px";
-    if (top > window.innerHeight + 50) { clearInterval(fallInterval); wrapper.remove(); }
+    if (top > window.innerHeight + 50) {
+      clearInterval(fallInterval);
+      wrapper.remove();
+      currentEmojis--;
+    }
   }, interval);
 }
-setInterval(createFallingEmoji, 300);
+
+// mỗi 500ms tạo 1 emoji
+setInterval(createFallingEmoji, 500);
+
 
 // === Exit button logic ===
 let moveCount = 0, maxMoves = 2;

@@ -338,15 +338,16 @@ body.dark #mode-toggle, body.dark #music-btn {
 /* === MOBILE: bỏ căn giữa để ảnh không bị dồn xuống === */
 @media (max-width: 480px) {
   .photo-album {
-    left: 0;
-    transform: none;              /* Trên mobile không căn giữa */
-    width: 100%;
-    justify-content: flex-start;  /* Bắt đầu từ bên trái */
-    padding-left: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    justify-content: center;
+    padding-left: 0;
   }
 
   .photo-album img {
-    width: 95px;
-    height: 95px;
+    width: 90px;
+    height: 90px;
   }
 }
+
