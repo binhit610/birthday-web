@@ -1,65 +1,256 @@
+/* === Reset cơ bản === */
 * { margin:0; padding:0; box-sizing:border-box; }
-body, html { height:100%; font-family:'Poppins', sans-serif; background: linear-gradient(135deg, #fce4ec, #fff8e1); overflow-x:hidden; transition: background 0.5s; }
-body.dark { background: linear-gradient(135deg,#222,#444); color:#eee; }
-.container { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1rem; position:relative; text-align:center; color:#d81b60; }
+body, html { 
+  height:100%; 
+  font-family:'Poppins', sans-serif; 
+  background: linear-gradient(135deg, #fce4ec, #fff8e1); 
+  overflow-x:hidden; 
+  transition: background 0.5s; 
+}
+body.dark { 
+  background: linear-gradient(135deg,#222,#444); 
+  color:#eee; 
+}
+
+/* === Container === */
+.container { 
+  min-height:100vh; 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  justify-content:center; 
+  padding:1rem; 
+  position:relative; 
+  text-align:center; 
+  color:#d81b60; 
+}
 body.dark .container { color:#ff80ab; }
-h1 { font-family:'Pacifico',cursive; font-size:3.5rem; margin-bottom:0.3rem; animation:pulse 2s infinite; }
-@keyframes pulse {0%,100%{transform:scale(1);}50%{transform:scale(1.07);}}
-.btn { padding:15px 30px; font-size:1.1rem; font-weight:600; border:none; border-radius:30px; cursor:pointer; background:#d81b60; color:white; margin:0 12px; box-shadow:0 6px 15px rgba(216,27,96,0.5); transition:background 0.3s,box-shadow 0.3s;}
-.btn:hover { background:#e91e63; box-shadow:0 8px 22px rgba(233,30,99,0.7);}
-body.dark .btn{background:#ff4081;box-shadow:0 6px 15px rgba(255,64,129,0.7);}
-body.dark .btn:hover{background:#f50057; box-shadow:0 8px 22px rgba(245,0,87,0.9);}
-.popup { position:fixed; top:50%; left:50%; width:90%; max-width:400px; background:white; border-radius:20px; box-shadow:0 6px 25px rgba(0,0,0,0.3); transform:translate(-50%,-50%) scale(0); opacity:0; transition:all 0.4s ease; z-index:100; padding:30px; user-select:none; }
-body.dark .popup { background:#311b3f; color:#ffc1e3; box-shadow:0 6px 25px rgba(255,64,129,0.8); }
-.popup.show { transform:translate(-50%,-50%) scale(1); opacity:1; }
-.popup h2 { font-family:'Pacifico',cursive; font-size:2rem; margin-bottom:15px; color:#d81b60; }
-body.dark .popup h2 { color:#ff80ab; }
-.popup p { font-size:1.1rem; line-height:1.5; color:#444; }
-body.dark .popup p { color:#ffb6d4; }
-.close-btn { margin-top:25px; padding:12px 25px; background:#d81b60; color:white; border-radius:25px; border:none; font-weight:600; cursor:pointer; box-shadow:0 6px 15px rgba(216,27,96,0.5); transition: background 0.3s; }
+
+/* === Tiêu đề === */
+h1 { 
+  font-family:'Pacifico',cursive; 
+  font-size:3.5rem; 
+  margin-bottom:0.3rem; 
+  animation:pulse 2s infinite; 
+}
+@keyframes pulse {
+  0%,100%{transform:scale(1);}
+  50%{transform:scale(1.07);}
+}
+
+/* === Nút bấm === */
+.btn { 
+  padding:15px 30px; 
+  font-size:1.1rem; 
+  font-weight:600; 
+  border:none; 
+  border-radius:30px; 
+  cursor:pointer; 
+  background:#d81b60; 
+  color:white; 
+  margin:0 12px; 
+  box-shadow:0 6px 15px rgba(216,27,96,0.5); 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s;
+}
+.btn:hover { 
+  transform: scale(1.05);
+  background:#e91e63; 
+  box-shadow:0 8px 22px rgba(233,30,99,0.7);
+}
+.btn:active { 
+  transform: scale(0.95); 
+  box-shadow:0 4px 10px rgba(216,27,96,0.4);
+}
+body.dark .btn{
+  background:#ff4081;
+  box-shadow:0 6px 15px rgba(255,64,129,0.7);
+}
+body.dark .btn:hover{
+  background:#f50057; 
+  box-shadow:0 8px 22px rgba(245,0,87,0.9);
+}
+
+/* Popup chung */
+.popup {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  width: 90%;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  transform: translate(-50%,0) scale(0);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 100;
+  padding: 30px;
+}
+body.dark .popup {
+  background: #311b3f;
+  color: #ffc1e3;
+  box-shadow: 0 6px 25px rgba(255,64,129,0.8);
+}
+.popup.show {
+  transform: translate(-50%,0) scale(1);
+  opacity: 1;
+}
+
+/* === Ảnh góc phải fixed ngoài popup, luôn nổi === */
+#corner-surprise {
+  position: fixed;        
+  bottom: 20px;           
+  right: 20px;            
+  width: 120px;           
+  height: auto;           
+  pointer-events: none;   
+  border-radius: 10px;    
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  opacity: 0;             
+  transform: scale(0.9);  
+  transition: opacity 1s ease, transform 0.5s ease;
+  z-index: 999;            
+}
+#corner-surprise.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* === Input pass === */
+#pass-popup input { 
+  width:80%; 
+  padding:10px; 
+  margin-top:15px; 
+  font-size:1rem; 
+  border-radius:15px; 
+  border:1px solid #d81b60; 
+  outline:none;
+}
+body.dark #pass-popup input { 
+  border:1px solid #ff4081; 
+  background:#311b3f; 
+  color:#ffc1e3; 
+}
+
+/* === Close button === */
+.close-btn { 
+  margin-top:25px; 
+  padding:12px 25px; 
+  background:#d81b60; 
+  color:white; 
+  border-radius:25px; 
+  border:none; 
+  font-weight:600; 
+  cursor:pointer; 
+  box-shadow:0 6px 15px rgba(216,27,96,0.5); 
+  transition: background 0.3s; 
+}
 .close-btn:hover{background:#e91e63;}
 body.dark .close-btn {background:#ff4081;box-shadow:0 6px 15px rgba(255,64,129,0.7);}
 body.dark .close-btn:hover{background:#f50057;}
 
-#pass-popup input { width:80%; padding:10px; margin-top:15px; font-size:1rem; border-radius:15px; border:1px solid #d81b60; outline:none;}
-body.dark #pass-popup input { border:1px solid #ff4081; background:#311b3f; color:#ffc1e3; }
-
-.photo-album { position:fixed; top:20px; left:50%; transform:translateX(-50%); display:flex; justify-content:center; z-index:80; pointer-events:none; }
-.photo-album img { width:100px;height:100px;object-fit:cover;border-radius:5px;box-shadow:0 4px 10px rgba(0,0,0,0.2); transition:transform 0.3s; }
-.photo-album img:not(:first-child) { position:relative; left:-25px; }
-.photo-album img:hover { transform:scale(1.1) rotate(-5deg); z-index:100; }
-
-#exit-popup img {
-  width: 150px; /* ảnh nhỏ popup “Không thì cút” */
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 15px;
+/* === Album ảnh === */
+.photo-album {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 20px 0;
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:80;
+  pointer-events:none;
+}
+.photo-album img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.photo-album img:not(:first-child) {
+  position: relative;
+  left: -25px;
+}
+.photo-album img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.35);
 }
 
-#exit-popup {
-  max-width: 400px;
-  padding: 25px;
+/* === Exit popup === */
+#exit-popup img { width: 150px; height: auto; border-radius: 10px; margin-bottom: 15px; }
+#exit-popup { 
+  position: absolute;
+  max-width:400px; 
+  padding:25px; 
+  border-radius: 20px; 
+  background: white;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  transition: all 0.4s ease;
+  z-index:100;
+  user-select:none;
 }
+body.dark #exit-popup { background: #311b3f; color: #ffc1e3; box-shadow:0 6px 25px rgba(255,64,129,0.8); }
+
+/* === Emoji rơi === */
 .falling-emoji {
   position: fixed;
   top: -50px;
-  animation: fall linear forwards;
   pointer-events: none;
   z-index: 9999;
 }
-
 @keyframes fall {
-  0% { transform: translateY(0); }
+  0% { transform: translateY(-50px); }
   100% { transform: translateY(110vh); }
 }
-#fireworks {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
+@keyframes rotateEmoji {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(15deg); }
+  100% { transform: rotate(-15deg); }
 }
 
+/* === Canvas pháo hoa === */
+#fireworks {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  pointer-events:none;
+  z-index:1;
+}
 
+/* === Responsive === */
+@media (max-width: 600px) {
+  body, html { font-size: 16px; }
+  .container { padding: 1rem; }
+  .btn { padding: 12px 24px; font-size: 1rem; }
+  h1 { font-size: 2.5rem; }
+}
+@media (max-width: 400px) { .photo-album img { width: 60px; left: -15px; } }
+
+/* === Remind popup === */
+.remind-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  opacity: 0;
+  background: #ffe4e1;
+  padding: 30px 25px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  z-index: 210;
+  transition: all 0.4s ease;
+}
+body.dark .remind-popup { background: #311b3f; color: #ffc1e3; }
+.remind-popup.show { transform: translate(-50%,-50%) scale(1); opacity: 1; }
+.remind-popup h2 { font-size: 1.5rem; margin-bottom: 20px; }
+.remind-popup .btn { padding: 12px 25px; font-size: 1.1rem; }

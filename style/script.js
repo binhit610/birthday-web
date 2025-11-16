@@ -7,6 +7,19 @@ const wrongPassPopup = document.getElementById("wrong-pass-popup");
 const retryPass = document.getElementById("retry-pass");
 const correctPass = "18112008";
 
+// === Popup nhắc nhập pass khi để trống ===
+const remindPopup = document.createElement("div");
+remindPopup.classList.add("remind-popup");
+remindPopup.innerHTML = `
+  <h2>Nhập pass đi á 😆</h2>
+  <button class="btn" id="remind-ok-btn">OK</button>
+`;
+document.body.appendChild(remindPopup);
+document.getElementById("remind-ok-btn").addEventListener("click", () => {
+  remindPopup.classList.remove("show");
+  passPopup.classList.add("show");
+});
+
 // Bấm mở quà => hiện popup nhập pass
 openGiftBtn.addEventListener("click", () => {
   passPopup.classList.add("show");
@@ -14,7 +27,11 @@ openGiftBtn.addEventListener("click", () => {
 
 // Kiểm tra pass
 submitPass.addEventListener("click", () => {
-  if(passInput.value.trim() === correctPass){
+  const pass = passInput.value.trim();
+  if(pass === ""){
+    passPopup.classList.remove("show");
+    remindPopup.classList.add("show");
+  } else if(pass === correctPass){
     passPopup.classList.remove("show");
     showAgePopup();
   } else {
@@ -32,12 +49,10 @@ retryPass.addEventListener("click", () => {
 
 // === Popup tuổi thật ===
 const agePopup = document.getElementById("guess-age-popup");
-const ageButtons = document.querySelectorAll(".age-btn");
 const correctAge = "17";
 
 function showAgePopup(){
   agePopup.classList.add("show");
-  // Reset nội dung cũ
   agePopup.innerHTML = `
     <center><img src="https://i.pinimg.com/736x/aa/3a/dd/aa3add4a9fcb132c14ac9c6ede3baf7e.jpg" alt="Guess age" style="width: 120px;"/></center>
     <h2>Khai tuổi thật đi 🤨</h2>
@@ -47,9 +62,9 @@ function showAgePopup(){
       <button class="btn age-btn" data-age="18">18 tuổi</button>
     </div>
   `;
-  // Gắn lại sự kiện cho các nút mới
-  const newAgeButtons = agePopup.querySelectorAll(".age-btn");
-  newAgeButtons.forEach(btn => {
+
+  const ageBtns = agePopup.querySelectorAll(".age-btn");
+  ageBtns.forEach(btn => {
     btn.addEventListener("click", () => handleAgeSelection(btn.dataset.age));
   });
 }
@@ -62,8 +77,7 @@ function handleAgeSelection(selected){
       <p>Bấm nút bên dưới để xem bất ngờ 🎉</p>
       <button class="btn" id="show-birthday">Zui zẻ không quạo</button>
     `;
-    const showBtn = document.getElementById("show-birthday");
-    showBtn.addEventListener("click", () => {
+    document.getElementById("show-birthday").addEventListener("click", () => {
       agePopup.classList.remove("show");
       startBirthdayPopup();
     });
@@ -83,17 +97,22 @@ const popup = document.getElementById("popup");
 const closePopupBtn = document.getElementById("close-popup-btn");
 const typingTextElem = document.getElementById("typing-text");
 const messages = [
-  "Sinh nhật dui dẻ nha bà, quý lắm mới chúc á hahaha! 💝🎂.",
+  "Sinh nhật dui dẻ nha bà, yêu thươngg lắm mới chúc á hahaha! 💝🎂.",
   "Mong sao tuổi mới Minh Thư sẽ mang đến thật nhiều hạnh phúc và sức khỏe dồi dào! 🎉✨.",
   "Chúc sao cho emm luôn thành công trong học tập nữa nè, làm gì cũng thuận lợi thii điểm caoo nhaa 🥰🍀.",
-  "Thêm một tuổi mới, chúc sao cho em luôn dui dẻ bên bạn bè, gia đình và người bà luôn yêu thương 🤗💞.",
-  "Đâyy là món quà nhỏ anh dành cho emm mong em thích nó nhenn,..",
+  "Thêm một tuổi mới, chúc sao cho em luôn dui dẻ bên bạn bè, gia đình và người mà luôn yêu thương 🤗💞.",
+  "Đâyy là món quà nhỏ anh dành cho emm mong em thích nó,với lại đừng có bơ anhh nữa nhenn  hiha..",
   "Hãy tận hưởng ngày đặc biệt này với thật nhiều niềm vui và tiếng cười nhé! ❤️🎈"
 ];
 let msgIndex = 0, charIndex = 0, typingTimeout;
 
+// Khi typing thư xong mới show ảnh góc phải
 function typeMessage(){
-  if(msgIndex >= messages.length) return;
+  if(msgIndex >= messages.length) {
+    document.getElementById("corner-surprise").classList.add("show");
+    return;
+  }
+
   const currentMsg = messages[msgIndex];
   if(charIndex < currentMsg.length){
     typingTextElem.textContent += currentMsg.charAt(charIndex);
@@ -108,6 +127,7 @@ function typeMessage(){
     }, 1000);
   }
 }
+
 
 function startTyping(){
   clearTimeout(typingTimeout);
@@ -204,11 +224,10 @@ function loop(){
 }
 
 function startFireworks(){
-  animationFrameId = null;   // 🔥 Thêm dòng này
+  animationFrameId=null;
   loop();
 }
-
-function stopFireworks(){ cancelAnimationFrame(animationFrameId); animationFrameId=null; fireworks=[]; particles=[]; ctx.clearRect(0,0,canvas.width,canvas.height); }
+function stopFireworks(){ cancelAnimationFrame(animationFrameId); animationFrameId=null; fireworks=[]; particles=[]; ctx.clearRect(0,0,canvas.width,canvas.height);}
 window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
 
 // === Music & Mode ===
@@ -234,20 +253,45 @@ function updateModeIcon(){ modeToggleBtn.textContent=document.body.classList.con
 modeToggleBtn.addEventListener("click",()=>{ document.body.classList.toggle("dark"); updateModeIcon(); });
 updateModeIcon();
 
-// === Emoji rơi ===
 function createFallingEmoji(){
-  const emojiList=["🌸","🎉","🍰","💖","🥰","🎂","🍀"];
-  const emoji=document.createElement("div");
-  emoji.className="falling-emoji";
-  emoji.textContent=emojiList[Math.floor(Math.random()*emojiList.length)];
-  emoji.style.left=Math.random()*100+"vw";
-  emoji.style.fontSize=(Math.random()*20+24)+"px";
-  emoji.style.animationDuration=(Math.random()*5+4)+"s";
-  emoji.style.opacity=Math.random()*0.6+0.4;
-  document.body.appendChild(emoji);
-  emoji.addEventListener("animationend",()=>{ emoji.remove(); });
+  const emojiList = ["🌸","🎉","🍰","💖","🥰","🎂","🍀"];
+  
+  const wrapper = document.createElement("div"); // wrapper để rơi
+  wrapper.style.position = "fixed";
+  wrapper.style.top = "-50px";
+  wrapper.style.left = Math.random() * 100 + "vw";
+  wrapper.style.pointerEvents = "none";
+  wrapper.style.zIndex = "9999";
+  wrapper.style.fontSize = (Math.random()*24 + 24) + "px";
+  wrapper.style.opacity = (Math.random()*0.6 + 0.4);
+
+  const emoji = document.createElement("div"); // emoji riêng để xoay
+  emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+  emoji.style.display = "inline-block";
+  emoji.style.animation = `rotateEmoji ${Math.random()*2+2}s linear infinite`;
+
+  wrapper.appendChild(emoji);
+  document.body.appendChild(wrapper);
+
+  // Rơi bằng JS (tự động update top)
+  let top = -50;
+  const fallDuration = Math.random()*4000+4000; // 4→8s
+  const interval = 16; // ~60fps
+  const step = (window.innerHeight + 100) / (fallDuration/interval); 
+  const fallInterval = setInterval(()=>{
+    top += step;
+    wrapper.style.top = top + "px";
+    if(top > window.innerHeight + 50){
+      clearInterval(fallInterval);
+      wrapper.remove();
+    }
+  }, interval);
 }
-setInterval(createFallingEmoji,350);
+
+// Tạo emoji mỗi 300ms
+setInterval(createFallingEmoji, 300);
+
+
 
 // === Exit button ===
 const exitBtn = document.getElementById("exit-btn");
@@ -261,8 +305,7 @@ closeExitBtn.addEventListener("click", ()=>{ exitPopup.classList.remove("show");
 exitBtn.addEventListener("mouseover", ()=>{
   if(moveCount<maxMoves){
     const x=Math.floor(Math.random()*(window.innerWidth-150));
-    const y=Math.floor(Math.randomHeight*(window.innerHeight-100));
-
+    const y=Math.floor(Math.random()*(window.innerHeight-100));
     exitBtn.style.position="absolute";
     exitBtn.style.left=`${x}px`; exitBtn.style.top=`${y}px`;
     moveCount++;
