@@ -306,3 +306,47 @@ body.dark #mode-toggle, body.dark #music-btn {
   .photo-album img { width: 60px; left: -15px; }
   #corner-surprise { width: 80px; }
 }
+/* === FIX 3 ẢNH TRÊN PC & MOBILE === */
+.photo-album {
+  display: flex;
+  flex-wrap: nowrap !important;   /* Không cho xuống dòng */
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px 0;
+  width: max-content;             /* Giữ kích thước thật để canh giữa */
+  margin: 0 auto;                 /* Canh giữa trên PC */
+  position: fixed;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);    /* GIỮ nguyên giữa cho PC */
+  pointer-events: none;
+  z-index: 80;
+}
+
+/* Ảnh không bị co */
+.photo-album img {
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+}
+
+/* Ẩn thanh kéo */
+.photo-album::-webkit-scrollbar {
+  display: none;
+}
+
+/* === MOBILE: bỏ căn giữa để ảnh không bị dồn xuống === */
+@media (max-width: 480px) {
+  .photo-album {
+    left: 0;
+    transform: none;              /* Trên mobile không căn giữa */
+    width: 100%;
+    justify-content: flex-start;  /* Bắt đầu từ bên trái */
+    padding-left: 15px;
+  }
+
+  .photo-album img {
+    width: 95px;
+    height: 95px;
+  }
+}
